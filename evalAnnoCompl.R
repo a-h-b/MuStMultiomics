@@ -1,0 +1,60 @@
+funcTab <- matrix(0,nrow=12,ncol=41,dimnames=list(c("geneNo","KOgenes","metaCycGenes","swissProtGenes","pfamGenes","tigrPfamGenes","annoGenes","KOrich","metaCycRich","swissProtRich","pfamRich","tigrPfamRich"),c(1:41)))
+bestTab <- matrix(0,nrow=12,ncol=41,dimnames=list(c("geneNo","KOgenes","metaCycGenes","swissProtGenes","pfamGenes","tigrPfamGenes","annoGenes","KOrich","metaCycRich","swissProtRich","pfamRich","tigrPfamRich"),c(1:41)))
+bestCompTab <- matrix(0,nrow=12,ncol=41,dimnames=list(c("geneNo","KOgenes","metaCycGenes","swissProtGenes","pfamGenes","tigrPfamGenes","annoGenes","KOrich","metaCycRich","swissProtRich","pfamRich","tigrPfamRich"),c(1:41)))
+i <- 1
+for(fam in paste("must_m_0",1:4,sep="")){
+setwd(paste("/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/Bmaps/",fam,sep=""))
+ids <- read.delim("ids",header=F,stringsAsFactors=F)
+for(lib in ids$V2){
+setwd(paste("/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/Bmaps/",fam,"/",lib,sep=""))
+load("WSvar.Rdata")
+colnames(funcTab)[i] <- lib
+funcTab[1,i] <- length(which(geneInf$completeness=="complete"))
+funcTab[2,i] <- length(geneInf$KO[geneInf$KO!="unknown"&geneInf$completeness=="complete"])
+funcTab[3,i] <- length(geneInf$metaCycID[geneInf$metaCycID!="unknown"&geneInf$completeness=="complete"])
+funcTab[4,i] <- length(geneInf$swissprotEC[geneInf$swissprotEC!="unknown"&geneInf$completeness=="complete"])
+funcTab[5,i] <- length(geneInf$pfamID[geneInf$pfamID!="unknown"&geneInf$completeness=="complete"])
+funcTab[6,i] <- length(geneInf$tigrID[geneInf$tigrID!="unknown"&geneInf$completeness=="complete"])
+funcTab[7,i] <- length(geneInf$KO[geneInf$completeness=="complete"&(geneInf$KO!="unknown"|geneInf$metaCycID!="unknown"|geneInf$swissprotEC!="unknown"|geneInf$pfamID!="unknown"|geneInf$tigrID!="unknown")])
+funcTab[8,i] <- length(unique(unlist(sapply(geneInf$KO[geneInf$KO!="unknown"&geneInf$completeness=="complete"],function(x)unlist(strsplit(x,split=";"))))))
+funcTab[9,i] <- length(unique(unlist(sapply(geneInf$metaCycID[geneInf$metaCycID!="unknown"&geneInf$completeness=="complete"],function(x)unlist(strsplit(x,split=";"))))))
+funcTab[10,i] <- length(unique(unlist(sapply(geneInf$swissprotEC[geneInf$swissprotEC!="unknown"&geneInf$completeness=="complete"],function(x)unlist(strsplit(x,split=";"))))))
+funcTab[11,i] <- length(unique(unlist(sapply(geneInf$pfamID[geneInf$pfamID!="unknown"&geneInf$completeness=="complete"],function(x)unlist(strsplit(x,split=";"))))))
+funcTab[12,i] <- length(unique(unlist(sapply(geneInf$tigrID[geneInf$tigrID!="unknown"&geneInf$completeness=="complete"],function(x)unlist(strsplit(x,split=";"))))))
+setwd(paste("/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/hmms/",fam,"/",lib,sep=""))
+ann <- read.delim("besthitsAllDB.tsv",stringsAsFactors=F)
+colnames(bestCompTab)[i] <- lib
+geneInf <- merge(geneInf,ann,by.x="gene",by.y="Gene",all.x=T)
+geneInf$ID[is.na(geneInf$ID)] <- "unknown"
+bestCompTab[1,i] <- length(which(geneInf$completeness=="complete"))
+bestCompTab[2,i] <- length(grep("KEGG",geneInf$ID[geneInf$completeness=="complete"]))
+bestCompTab[3,i] <- length(grep("metaCyc",geneInf$ID[geneInf$completeness=="complete"]))
+bestCompTab[4,i] <- length(grep("swissProt",geneInf$ID[geneInf$completeness=="complete"]))
+bestCompTab[5,i] <- length(grep("Pfam",geneInf$ID[geneInf$completeness=="complete"]))
+bestCompTab[6,i] <- length(grep("TIGR",geneInf$ID[geneInf$completeness=="complete"]))
+bestCompTab[7,i] <- length(geneInf$ID[geneInf$completeness=="complete"&geneInf$ID!="unknown"])
+bestCompTab[8,i] <- length(unique(grep("KEGG",geneInf$ID[geneInf$completeness=="complete"],value=T)))
+bestCompTab[9,i] <- length(unique(grep("metaCyc",geneInf$ID[geneInf$completeness=="complete"],value=T)))
+bestCompTab[10,i] <- length(unique(grep("swissProt",geneInf$ID[geneInf$completeness=="complete"],value=T)))
+bestCompTab[11,i] <- length(unique(grep("Pfam",geneInf$ID[geneInf$completeness=="complete"],value=T)))
+bestCompTab[12,i] <- length(unique(grep("TIGR",geneInf$ID[geneInf$completeness=="complete"],value=T)))
+colnames(bestTab)[i] <- lib
+bestTab[1,i] <- nrow(geneInf)
+bestTab[2,i] <- length(grep("KEGG",geneInf$ID))
+bestTab[3,i] <- length(grep("metaCyc",geneInf$ID))
+bestTab[4,i] <- length(grep("swissProt",geneInf$ID))
+bestTab[5,i] <- length(grep("Pfam",geneInf$ID))
+bestTab[6,i] <- length(grep("TIGR",geneInf$ID))
+bestTab[7,i] <- length(geneInf$ID[geneInf$ID!="unknown"])
+bestTab[8,i] <- length(unique(grep("KEGG",geneInf$ID,value=T)))
+bestTab[9,i] <- length(unique(grep("metaCyc",geneInf$ID,value=T)))
+bestTab[10,i] <- length(unique(grep("swissProt",geneInf$ID,value=T)))
+bestTab[11,i] <- length(unique(grep("Pfam",geneInf$ID,value=T)))
+bestTab[12,i] <- length(unique(grep("TIGR",geneInf$ID,value=T)))
+i<- i+1
+}
+}
+write.table(funcTab,"/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/hmms/compareAnnoStatsCompleteGenes.tsv",sep="\t",quote=F)
+write.table(bestTab,"/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/hmms/compareAnnoStatsBest.tsv",sep="\t",quote=F)
+write.table(bestCompTab,"/work/projects/ecosystem_biology/MUST/CombinedAssembly/Annotation/hmms/compareAnnoStatsBestCompleteGenes.tsv",sep="\t",quote=F)
+
