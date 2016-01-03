@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# this file uses the NCBI taxonomy to return the species, genus, family, order, class, phylum and kingdom of a taxon
+# this script uses the NCBI taxonomy to return the species, genus, family, order, class, phylum and kingdom of a taxon
 # for multiple taxa a least common ancestor is returned
 # 4 inputs: - the path to a folder containing the NCBI taxdump
 #           - a file with multiple annotations for the same gene
@@ -8,7 +8,7 @@
 #           - the name of the output
 # 1 output - a table for all genes in the same order as in the two input files with LCA, species, genus, family, order, class, phylum, kingdom (tab separated)
 
-# the code is mostly borrowed from ???, with the exception of the assembly of the output table; Anna Heintz-Buschart, April 2014
+# the code is mostly borrowed from Romain Studer (http://evosite3d.blogspot.de/2013/06/browsing-ncbi-taxonomy-with-python.html), with the exception of the assembly of the output table; Anna Heintz-Buschart, April 2014
 
 import os
 import sys
