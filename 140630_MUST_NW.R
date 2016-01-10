@@ -185,8 +185,9 @@ write.table(nodes(koGraph),"KOs_in_NW.tsv",row.names=F,col.names=F,sep="\t")
 # saveRDS(mustIGraph,"mustIGraph.RDS")
 
 
-### function to load data and plot module and return nodes;
-## it can be used on tables containing node names, p-values (column name pvalue) and logFC (column name log2FoldChange), like the output of DESeq2
+### functions to load data and plot module and return nodes;
+## they can be used on tables containing node names, p-values (column name pvalue) and logFC (column name log2FoldChange), like the output of DESeq2
+# not using Heinz:
 annaMustPlotNW <- function(file,outname="module.pdf",fdr=0.05,graph=koGraph,w2d=F){
   data <- read.delim(file,stringsAsFactors=F,row.names=1)
   subnet <- subNetwork(rownames(data)[!is.na(data$pvalue)],graph)
@@ -196,6 +197,39 @@ annaMustPlotNW <- function(file,outname="module.pdf",fdr=0.05,graph=koGraph,w2d=
   fb <- fitBumModel(pval, plot = FALSE)
   scores <- scoreNodes(subnet, fb, fdr = fdr)
   module <- runFastHeinz(subnet, scores)
+  logFC <- data$log2FoldChange[!is.na(data$pvalue)]
+  names(logFC) <- rownames(data)[!is.na(data$pvalue)]
+  if(w2d){
+    pdf(outname,width=3.5,height=3.5,pointsize=8)
+    plotModule(module, scores = scores, diff.expr = logFC)
+    dev.off()
+  }
+  plotModule(module, scores = scores, diff.expr = logFC)
+  return(nodes(module))
+}
+
+# using Heinz:
+annaMustHeinzNW <- function(file,fdr=0.05,graph=koGraph,outname="Heinz"){
+  data <- read.delim(file,stringsAsFactors=F,row.names=1)
+  subnet <- subNetwork(rownames(data)[!is.na(data$pvalue)],graph)
+  subnet <- rmSelfLoops(subnet)
+  pval <- data$pvalue[!is.na(data$pvalue)]
+  names(pval) <- rownames(data)[!is.na(data$pvalue)]
+  fb <- fitBumModel(pval, plot = FALSE)
+  scores <- scoreNodes(subnet, fb, fdr = fdr)
+  writeHeinzEdges(network = subnet, file = paste(gsub(".tsv","",file),outname,sub("0.","",fdr),"Edges",sep="."),use.score = FALSE)
+  writeHeinzNodes(network = subnet, file = paste(gsub(".tsv","",file),outname,sub("0.","",fdr),"Nodes",sep="."),node.scores = scores)
+  system(paste("bash runHeinz.sh ",paste(gsub(".tsv","",file),outname,sub("0.","",fdr),"*es","txt",sep="."),sep=""))
+  return(list(file,paste(gsub(".tsv","",file),outname,sub("0.","",fdr),"Output.txt",sep=".")))
+}
+
+annaMustHeinzPlotNW <- function(file,outname="module.pdf",graph=koGraph,w2d=F){
+  data <- read.delim(file[[1]],stringsAsFactors=F,row.names=1)
+  subnet <- subNetwork(rownames(data)[!is.na(data$pvalue)],graph)
+  subnet <- rmSelfLoops(subnet)
+  fn <- unlist(strsplit(file[[2]],split="/"))
+  fn <- fn[length(fn)]
+  module <- readHeinzGraph(node.file = fn, network = subnet)
   logFC <- data$log2FoldChange[!is.na(data$pvalue)]
   names(logFC) <- rownames(data)[!is.na(data$pvalue)]
   if(w2d){
