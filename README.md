@@ -7,7 +7,7 @@ variant_annotateRepairedTab.pl
 variants_annotateTab4Stats.pl
 variants_locateType.pl
 
-to parse [functional annotations](functional-annotations) of gene predictions (some including [coverage](calculating-coverage)):
+to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage)):
 150310_MUST_hmmBestAll.py
 150705_MUST_hmmParse.py
 150705_MUST_hmmParsePfam.py
