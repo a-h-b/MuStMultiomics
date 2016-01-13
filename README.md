@@ -1,11 +1,11 @@
 This repository contains code used in the multiomic analyses of faecal microbiota from four families with several cases of T1DM ( __MuSt__ ).
 
 to build a search data base for [proteomics](proteomics-data-base.md) from predicted proteins and their variants:
-⋅⋅* rename4proteomics.pl
-⋅⋅* trypsinStartEnd.pl
-⋅⋅* variant_annotateRepairedTab.pl
-⋅⋅* variants_annotateTab4Stats.pl
-⋅⋅* variants_locateType.pl
+  * rename4proteomics.pl
+  * trypsinStartEnd.pl
+  * variant_annotateRepairedTab.pl
+  * variants_annotateTab4Stats.pl
+  * variants_locateType.pl
 
 to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage.md)):
 ⋅⋅* 150310_MUST_hmmBestAll.py
