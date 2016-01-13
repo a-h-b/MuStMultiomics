@@ -1,4 +1,3 @@
-
 To annotate the predictions of protein coding genes with functions, we used different sets of HMM databases (for KEGG KOs, enzymes from MetaCyc and Uniprot, PFAM families, and TIGRFAM families). The databases for Pfam were downloaded from (INSERT LINK) and for TIGRFAM from (INSERT LINK). The other databases were compiled by ??? 
 
 HMMER 3.1 (http://hmmer.janelia.org/) was run on each database to find hits ( _contig.Prodigal.faa_ is the file with amino acid sequences of the protein coding gene predictions).
@@ -37,7 +36,7 @@ python 150705_MUST_keggParseNW.py contig.Prodigal.faakegg.tsv -g $(grep ">" cont
 ```
 As you can see, I always use the -g option of these scripts, which sets a sample-specific threshold for annotations to be accepted. In accordance with the HMMer manual, this is log2 of the number of predicted genes.
 
-Now we have the annotations for each gene, but we might also like to know how many reads (representing how many fragments) map to the genes with a functional annotation to do some expression analysis. This can be done using very similar a family of scripts, which also take a gene-wise read [coverage](calculating-coverage) table as input. In the MuSt, the gene expression analysis was based on the best annotation out of all databases:
+Now we have the annotations for each gene, but we might also like to know how many reads (representing how many fragments) map to the genes with a functional annotation to do some expression analysis. This can be done using very similar a family of scripts, which also take a gene-wise read [coverage](calculating-coverage.md) table as input. In the MuSt, the gene expression analysis was based on the best annotation out of all databases:
 
 ```
 python 150322_bestHmmReadParse.py contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv DNAonGenesrRNA.cov.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
