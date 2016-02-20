@@ -331,7 +331,7 @@ sub getSeq {
 	}
     } elsif ($variants && $$ref{'strand'} eq "-") {
 	push @seqs,$seq;
-	foreach my $v (sort {$$a{'pos'} <=> $$b{'pos'}} @{$variants}) {
+	foreach my $v (sort {$$b{'pos'} <=> $$a{'pos'}} @{$variants}) {
 	    my $seqnum = 0;
 	    while ($seqnum <= $#seqs){
 		my $ss1 = substr($seqs[$seqnum], 0, ($$v{'pos'} - $$ref{'start'}));
