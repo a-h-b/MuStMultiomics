@@ -34,6 +34,9 @@ to automatically [cluster](automatic-clustering.md) contigs based on nucleotide 
   * autoCluster.R
   * fastaExtractCutRibosomal1000.pl
   * makeWSvarAnnoCorrect.R
+  
+to gather contig clusters by [related phylogenetic marker genes in a phylogenetic tree](phylogenetic-marker-genes-trees.md):
+  * 150819_MUST_tree.R
 
 to [reconstruct](reconstructed-KO-network.md) a metabolic network from KOs and analyse it:
   * 140630_MUST_NW.R
