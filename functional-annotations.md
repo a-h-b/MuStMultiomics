@@ -20,7 +20,7 @@ The formatted output is then parsed once more to retain only the best annotation
 ```
 python 150310_MUST_hmmBestAll.py contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
 ```
-Alternatively, or additionally (in the case of MuSt), we can get the best annotation per database:
+Alternatively, or additionally (in the case of MuSt), we can get [the best annotation per database](150705_MUST_hmmParse.py):
 
 ```
 python 150705_MUST_hmmParsePfam.py contig.Prodigal.faapfam.tsv pfamID -g $(grep ">" contig.Prodigal.faa | wc -l) -k
@@ -29,30 +29,28 @@ python 150705_MUST_hmmParse.py contig.Prodigal.faaswissprot.tsv swissprotEC -g $
 python 150705_MUST_hmmParse.py contig.Prodigal.faatigrpfam.tsv tigrID -g $(grep ">" contig.Prodigal.faa | wc -l)
 python 150705_MUST_hmmParse.py contig.Prodigal.faakegg.tsv KO -g $(grep ">" contig.Prodigal.faa | wc -l)
 ```
-As a last alternative, we can annotate genes with the nodes of a [reconstructed metabolic network](reconstructed-KO-network) based on the KO annotations. The script for this uses a table (provided here in `150705_KOs_in_NW.tsv`) with the link between nodes and KOs (which node contains which KOs) which is built by the network reconstruction script.
+The IDs in the Pfam database have a slightly different format, so there is an [extra script](150705_MUST_hmmParsePfam.py) for this.
+As a last alternative, we can annotate genes with the nodes of a [reconstructed metabolic network](reconstructed-KO-network) based on the KO annotations. The [script for this](150705_MUST_keggParseNW.py) uses a table (provided here in [`150705_KOs_in_NW.tsv`](150705_KOs_in_NW.tsv)) with the link between nodes and KOs (which node contains which KOs) which is built by the network reconstruction script.
 
 ```
 python 150705_MUST_keggParseNW.py contig.Prodigal.faakegg.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
 ```
 As you can see, I always use the -g option of these scripts, which sets a sample-specific threshold for annotations to be accepted. In accordance with the HMMer manual, this is log2 of the number of predicted genes.
 
-Now we have the annotations for each gene, but we might also like to know how many reads (representing how many fragments) map to the genes with a functional annotation to do some expression analysis. This can be done using very similar a family of scripts, which also take a gene-wise read [coverage](calculating-coverage.md) table as input. In the MuSt, the gene expression analysis was based on the best annotation out of all databases:
+Now we have the annotations for each gene, but we might also like to know how many reads (representing how many fragments) map to the genes with a functional annotation to do some expression analysis. This can be done using very similar a family of [scripts](150322_bestHmmReadParse.py), which also take a gene-wise read [coverage](calculating-coverage.md) table as input. In the MuSt, the gene expression analysis was based on the best annotation out of all databases:
 
 ```
 python 150322_bestHmmReadParse.py contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv DNAonGenesrRNA.cov.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
-	python $calcScript contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv RNAonGenesrRNA.cov.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
 ```
-There is also a version of this script which calculates the average coverage depth of each function from all genes annotated with this function (`150415_bestHmmAveCovParse.py`). The results of this were not used within the MuSt.
+There is also a version of this script which calculates the average coverage depth of each function from all genes annotated with this function ([`150415_bestHmmAveCovParse.py`](150415_bestHmmAveCovParse.py)). The results of this were not used within the MuSt.
 
 ```
 #python 150415_bestHmmAveCovParse.py contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv DNAonGenesrRNA.cov.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
-#python $calcScript contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv RNAonGenesrRNA.cov.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
 ```
-Alternatively, only single databases can be used. In the case of MuSt, we used the KO database.
+Alternatively, only single databases can be used. In the case of MuSt, we [used](150630_keggReadParse.py) the KO database.
 
 ```
 python 150630_keggReadParse.py contig.Prodigal.faakegg.tsv DNAonGenesrRNA.mapped.tsv -g $(grep ">" contig.Prodigal.faa | wc -l) -p 100.0
-python 150630_keggReadParse.py contig.Prodigal.faakegg.tsv RNAonGenesrRNA.mapped.tsv -g $(grep ">" contig.Prodigal.faa | wc -l) -p 100.0
 ```
 
 
