@@ -39,7 +39,7 @@ to gather contig clusters by [related phylogenetic marker genes in a phylogeneti
   * 150819_MUST_tree.R
 
 to [reconstruct](reconstructed-KO-network.md) a metabolic network from KOs and analyse it:
-  * 140630_MUST_NW.R
+  * [140630_MUST_NW.R](../blob/master/140630_MUST_NW.R)
   * with file 150705_KOs_in_NW.tsv
   * runHeinz.sh
   * plotModules_omicLevels.R
