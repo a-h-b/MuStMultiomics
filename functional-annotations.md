@@ -1,4 +1,4 @@
-To annotate the predictions of protein coding genes with functions, we used different sets of HMM databases (for KEGG KOs, enzymes from MetaCyc and Uniprot, PFAM families, and TIGRFAM families). The databases for Pfam were downloaded from (INSERT LINK) and for TIGRFAM from (INSERT LINK). The other databases were compiled by ??? 
+To annotate the predictions of protein coding genes with functions, we used different sets of HMM databases (for KEGG KOs, enzymes from MetaCyc and Uniprot, PFAM families, and TIGRFAM families). The databases for Pfam and TIGRFAM were downloaded from the [Pfam](ftp://ftp.ebi.ac.uk/pub/databases/Pfam/) and [TIGRFAM](ftp://ftp.jcvi.org/pub/data/TIGRFAMs/) websites. The other databases were in-house, as decribed [here](http://pubs.rsc.org/en/Content/ArticleLanding/2009/MB/b915913b#!divAbstract). 
 
 HMMER 3.1 (http://hmmer.janelia.org/) was run on each database to find hits ( _contig.Prodigal.faa_ is the file with amino acid sequences of the protein coding gene predictions).
 
@@ -9,13 +9,13 @@ hmmsearch --cpu 12 --noali --notextw --tblout contig.Prodigal.faa.Pfam-A.hmmscan
 hmmsearch --cpu 12 --noali --notextw --tblout contig.Prodigal.faa.tigrpfam.hmmscan tigrpfam.hmm contig.Prodigal.faa >/dev/null
 hmmsearch --cpu 12 --noali --notextw --tblout contig.Prodigal.faa.swissprot.hmmscan swissprot.hmm contig.Prodigal.faa >/dev/null
 ```
-The output from HMMER was parsed using a script ???written by Venkata? which returns all hits in a better format (tab-separated).
+The output from HMMER was parsed using a [script](consolidate_hmmscan_results.pl) which returns all hits in a better format (tab-separated).
 
 ```
 perl consolidate_hmmscan_results.pl contig.Prodigal.faa contig.Prodigal.faa.kegg.hmmscan contig.Prodigal.faa.metacyc.hmmscan contig.Prodigal.faa.Pfam-A.hmmscan contig.Prodigal.faa.swissprot.hmmscan contig.Prodigal.faa.tigrpfam.hmmscan
 ```
-There is a second version for this script which does exactly the same, but only for the KO annotations (`consolidate_hmmscan_results_justKEGG.pl`).
-The formatted output is then parsed once more to retain only the best annotation out of all databases, or to get the top or top x percent of best hits from any database. To get the best annotation per gene, we can use `150310_MUST_hmmBestAll.py`.
+There is a [second version for this script](consolidate_hmmscan_results_justKEGG.pl) which does exactly the same, but only for the KO annotations.
+The formatted output is then parsed once more to retain only the best annotation out of all databases, or to get the top or top x percent of best hits from any database. To get the best annotation per gene, we can use [`150310_MUST_hmmBestAll.py`](150310_MUST_hmmBestAll.py).
 
 ```
 python 150310_MUST_hmmBestAll.py contig.Prodigal.faakegg.tsv contig.Prodigal.faametacyc.tsv contig.Prodigal.faaswissprot.tsv contig.Prodigal.faapfam.tsv contig.Prodigal.faatigrpfam.tsv -g $(grep ">" contig.Prodigal.faa | wc -l)
