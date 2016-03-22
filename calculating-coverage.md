@@ -35,9 +35,9 @@ samtools sort DNAonContigs.bam DNAonContigs.sorted
 samtools depth DNAonContigs.sorted.bam > DNAonContigs.depth.txt
 calculateCoverageAndGaps2.pl contigs.fa DNAonContigs.depth.txt > DNAonContigs.cov.tsv
 ```
-The last line uses a custom script, which calculates and uses the length of the contig to calculate the average depth of coverage from the output of samtools' depth, because this omits nucleotides not covered at all.
+The last line uses a custom [script](calculateCoverageAndGaps2.pl), which calculates and uses the length of the contig to calculate the average depth of coverage from the output of samtools' depth, because this omits nucleotides not covered at all.
 
-To get the number of mapping (e.g. metatranscriptomic) fragments for each gene, we went to the Patrick May School of Wizadry and Oneliners (http://wwwen.uni.lu/lcsb/people/patrick_may)
+To get the number of mapping (e.g. metatranscriptomic) fragments for each gene, we went to the [Patrick May](http://wwwen.uni.lu/lcsb/people/patrick_may) School of Wizadry and Oneliners
 
 ```
 grep -v -P "^\@" RNAonGenesrRNA.sam | cut -f 1,3 | sort | uniq | cut -f 2  | sort | uniq -c | perl -ane '$_=~/^\s+(\d+) (.+)$/;chomp($2); print "$2\t$1\n"; ' >RNAonGenesrRNA.mapped.tsv
