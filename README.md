@@ -1,24 +1,24 @@
 This repository contains code used in the multiomic analyses of faecal microbiota from four families with several cases of T1DM ( __MuSt__ ).
 
 to build a search data base for [proteomics](proteomics-data-base.md) from predicted proteins and their variants:
-  * rename4proteomics.pl
-  * trypsinStartEnd.pl
-  * variant_annotateRepairedTab.pl
-  * variants_annotateTab4Stats.pl
-  * variants_locateType.pl
+  * [rename4proteomics.pl](rename4proteomics.pl)
+  * [trypsinStartEnd.pl](trypsinStartEnd.pl)
+  * [variant_annotateRepairedTab.pl](variant_annotateRepairedTab.pl)
+  * [variants_annotateTab4Stats.pl](variants_annotateTab4Stats.pl)
+  * [variants_locateType.pl](variants_locateType.pl)
 
 to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage.md)):
-  * 150310_MUST_hmmBestAll.py
-  * 150705_MUST_hmmParse.py
-  * 150705_MUST_hmmParsePfam.py
-  * consolidate_hmmscan_results.pl
-  * consolidate_hmmscan_results_justKEGG.pl
-  * 150705_MUST_keggParseNW.py
-  * ko2des_clean.txt
-  * calculateCoverageAndGaps2.pl
-  * 150322_bestHmmReadParse.py
-  * 150415_bestHmmAveCovParse.py
-  * 150630_keggReadParse.py
+  * [150310_MUST_hmmBestAll.py](150310_MUST_hmmBestAll.py)
+  * [150705_MUST_hmmParse.py](150705_MUST_hmmParse.py)
+  * [150705_MUST_hmmParsePfam.py](150705_MUST_hmmParsePfam.py)
+  * [consolidate_hmmscan_results.pl](consolidate_hmmscan_results.pl)
+  * [consolidate_hmmscan_results_justKEGG.pl](consolidate_hmmscan_results_justKEGG.pl)
+  * [150705_MUST_keggParseNW.py](150705_MUST_keggParseNW.py)
+  * [ko2des_clean.txt](ko2des_clean.txt)
+  * [calculateCoverageAndGaps2.pl](calculateCoverageAndGaps2.pl)
+  * [150322_bestHmmReadParse.py](150322_bestHmmReadParse.py)
+  * [150415_bestHmmAveCovParse.py](150415_bestHmmAveCovParse.py)
+  * [150630_keggReadParse.py](150630_keggReadParse.py)
 
 to annotate phylogenetic [marker genes with the taxonomy](annotate-phylogenetic-marker-genes.md) of the best hit from the mOTU database:
   * fastaExtractWithCoordBase1.pl
