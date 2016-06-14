@@ -10,7 +10,8 @@
 # 	     - a table with the positions of the predicted variant genes, their start and stop codons <name>.variants.tab
 #	     - a log file <name>.variants.log
 #
-#written by Nicolas Pinel (July 04, 2013), some errors repaired and reporting included by Anna Heintz Buschart (Feb 2015)
+#written by Nicolas Pinel (July 04, 2013), some errors repaired and reporting included by Anna Heintz Buschart (Feb 2015 - Jun 2016)
+# this version handles the mix up of start- and stop-codons in the prodigal .tab output and returns correct results
 # this script is based on variant_annotateRepairedTab.pl, which was used for the DB generation within the MuSt project
 
 
@@ -151,7 +152,11 @@ sub loadAnnotation {
 	my $ctg = $f[0];
 	$ctg =~ s/_\d+$//g;
 	$ctg =~ s/gene//;
-	@hash{@headers} = (@f,@f[5 .. $#f]);
+	if ($f[1] eq "+") {
+	    @hash{@headers} = (@f,@f[5 .. $#f]);
+	} else{
+	    @hash{@headers} = (@f[0 .. 4],$f[6],$f[5],$f[7],$f[6],$f[5],$f[7]);
+	}
 	push(@{$feats{$ctg}}, \%hash);
     }
     return \%feats;

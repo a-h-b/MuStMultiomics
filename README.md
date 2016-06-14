@@ -3,11 +3,12 @@ This repository contains code used in the multiomic analyses of faecal microbiot
 to build a search data base for [proteomics](proteomics-data-base.md) from predicted proteins and their variants:
   * [rename4proteomics.pl](rename4proteomics.pl)
   * [trypsinStartEndProdigal.pl](trypsinStartEndProdigal.pl) (corrected version)
-  * [variant_annotateRepairedTab.pl](variant_annotateRepairedTabProdigal.pl) (corrected version)
+  * [variant_annotateRepairedTabProdigal.pl](variant_annotateRepairedTabProdigal.pl) (corrected version)
+  * [variants_annotateTab4StatsProdigal.pl](variants_annotateTab4StatsProdigal.pl) (corrected version)
   * [trypsinStartEnd.pl](trypsinStartEnd.pl) (old version)
   * [variant_annotateRepairedTab.pl](variant_annotateRepairedTab.pl) (old version)
   * [variant_annotateRepairedTabProdigalStillWrong.pl](variant_annotateRepairedTabProdigalStillWrong.pl) (version to keep workflow)
-  * [variants_annotateTab4Stats.pl](variants_annotateTab4Stats.pl)
+  * [variants_annotateTab4Stats.pl](variants_annotateTab4Stats.pl) (old version)
   * [variants_locateType.pl](variants_locateType.pl)
 
 to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage.md)):
