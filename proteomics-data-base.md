@@ -23,6 +23,8 @@ perl variant_annotateRepairedTab.pl -v DNARNAonContigsFiltered.vcf -a gene.tab -
 ```
 This  [script](variant_annotateRepairedTab.pl) gives out two fasta files with the nucleotide and amino acid sequences of all predicted proteins, including the original predictions and the variants, as well as a .tab file with the variant gene positions in the prodigal-style. The resulting .tab-file was concatenated with the original tab file. This was used to [remove](trypsinStartEnd.pl) incomplete protein fragments which would not form tryptic peptides.
 
+**These two scripts use the prodigal .tab output, which actually mix up the start- and the stop-codon of the genes predicted in "-"-sense. A corrected version of the end-removal script can be found [here](trypsinStartEndProdigal.pl). For the variant-inclusion script, two "corrected"" versions exist: [one](variant_annotateRepairedTabProdigal.pl) which corrects for the switch internally, but gives out a confused .tab file (for use below, with an original, confused Prodigal-output). And a [second script](variant_annotateRepairedTabProdigalStillWrong.pl), which also returns .tab with the correct assignment of start and stop.**
+
 ```
 cat gene.tab contigs.formatted.variants.tab >> genes.variants.tab
 perl trypsinStartEnd.pl contigs.formatted.variants.faa genes.variants.tab >> genes.variants.endsRemoved.faa
