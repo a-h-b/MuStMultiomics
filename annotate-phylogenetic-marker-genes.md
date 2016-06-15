@@ -37,7 +37,7 @@ grep motus.processing -v metaT.mOTU.counts | cut -f 1 >> mOTUs.present
 cat mOTUs.present | sort | uniq > mOTUs.present.all
 ```
 
-With the help of the R script [`getValidGenes1.R`](getValidGenes1.), we then searched the mapping files _mOTU.v1.padded.motu.linkage.map_ and _mOTU.v1.map.txt_ for the genes belonging to the mOTUs found in the sample. The genes were then extracted from the marker gene collection in COG-wise fashion into a new fasta file.
+With the help of the R script [`getValidGenes1.R`](getValidGenes1.R), we then searched the mapping files _mOTU.v1.padded.motu.linkage.map_ and _mOTU.v1.map.txt_ for the genes belonging to the mOTUs found in the sample. The genes were then extracted from the marker gene collection in COG-wise fashion into a new fasta file using [`testFastaExtract.pl`](testFastaExtract.pl).
 
 ```
 for cog in `cut -f 3 ../../mOTU.v1.padded.motu.map | sort | uniq` 
