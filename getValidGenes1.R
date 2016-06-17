@@ -19,7 +19,7 @@ phyl2 <- phyl[ phyl$mOTU.species.annotation %in% pres$V1,]
 mp <- merge(map,phyl2,by.x="mOTU",by.y=1)
 coord <- read.delim(paste("../../",COG,"/",COG,".mOTU.v1.padded.coord",sep=""),header=F,stringsAsFactors=F)
 co <- gsub(" ",".",coord$V1)
-coord <- read.delim(paste("../../",COG,"/",COG,".mOTU.v1.padded.coord",sep=""),header=F,stringsAsFactors=F,sep=" ")
+#coord <- read.delim(paste("../../",COG,"/",COG,".mOTU.v1.padded.coord",sep=""),header=F,stringsAsFactors=F,sep=" ")
 coord$name <- co
 mp2 <- merge(mp[mp$MarkerGene ==COG,],coord[,c(1,4)],by.x="SequenceID",by.y=1)
 
