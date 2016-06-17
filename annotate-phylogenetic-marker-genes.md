@@ -57,7 +57,7 @@ do
 	blastn -db $cog.present.genes.fna -query $cog.fna -outfmt 7 -out $cog.bestPresentHits.tsv -max_target_seqs 1
 done
 ```
-The annotations of the best hit on the different taxonomic levels are then taken from _mOTU-LG.v1.annotations.txt_, _mOTU.v1.padded.motu.linkage.map_ and _mOTU.v1.map.txt_ using the R script `getValidGenes2new.R`. 
+The annotations of the best hit on the different taxonomic levels are then taken from _mOTU-LG.v1.annotations.txt_, _mOTU.v1.padded.motu.linkage.map_ and _mOTU.v1.map.txt_ using the R script [`getValidGenes2.R`](getValidGenes2.R). 
 
 
 In the alternative workflow, which finds the best hit out of the whole marker gene collection, we just built a blast database with all marker genes (per COG). 
