@@ -6,7 +6,7 @@ In the first step, an R-script is run to retrieve all complete genes annotated a
 Rscript 150816_getPhyloMarkers.R
 ```
 
-This table is then used as input to a perl script which extracts the genes of interest from the fasta file containing all gene predictions of a sample (names of samples are part of the combinedIds file). We append the output of the script to the same file, so we have one fasta file with all complete genes for each class of marker genes.
+This table is then used as input to a perl [script](fastaProteinExtractAddSampleCluster.pl) which extracts the genes of interest from the fasta file containing all gene predictions of a sample (names of samples are part of the combinedIds file). We append the output of the script to the same file, so we have one fasta file with all complete genes for each class of marker genes.
 
 ```
 for lib in `cut -f 2 combinedIds`
