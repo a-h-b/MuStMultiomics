@@ -1,6 +1,7 @@
-This repository contains code used in the multiomic analyses of faecal microbiota from four families with several cases of T1DM ( __MuSt__ ).
+## This repository contains code used in the multiomic analyses of faecal microbiota from four families with several cases of T1DM ( __MuSt__ ). 
+You can find the different scripts behind the links next to the bullet points below. The links in the sub-headings below lead to descriptions of the workflows which connect the different scripts. 
 
-to build a search data base for [proteomics](proteomics-data-base.md) from predicted proteins and their variants:
+### to build a search data base for [proteomics](proteomics-data-base.md) from predicted proteins and their variants:
   * [rename4proteomics.pl](rename4proteomics.pl)
   * [trypsinStartEndProdigal.pl](trypsinStartEndProdigal.pl) (corrected version)
   * [variant_annotateRepairedTabProdigal.pl](variant_annotateRepairedTabProdigal.pl) (corrected version)
@@ -11,7 +12,7 @@ to build a search data base for [proteomics](proteomics-data-base.md) from predi
   * [variants_annotateTab4Stats.pl](variants_annotateTab4Stats.pl) (old version)
   * [variants_locateType.pl](variants_locateType.pl)
 
-to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage.md)):
+### to parse [functional annotations](functional-annotations.md) of gene predictions (some including [coverage](calculating-coverage.md)):
   * [150310_MUST_hmmBestAll.py](150310_MUST_hmmBestAll.py)
   * [150705_MUST_hmmParse.py](150705_MUST_hmmParse.py)
   * [150705_MUST_hmmParsePfam.py](150705_MUST_hmmParsePfam.py)
@@ -24,32 +25,32 @@ to parse [functional annotations](functional-annotations.md) of gene predictions
   * [150415_bestHmmAveCovParse.py](150415_bestHmmAveCovParse.py)
   * [150630_keggReadParse.py](150630_keggReadParse.py)
 
-to annotate phylogenetic [marker genes with the taxonomy](annotate-phylogenetic-marker-genes.md) of the best hit from the mOTU database:
+### to annotate phylogenetic [marker genes with the taxonomy](annotate-phylogenetic-marker-genes.md) of the best hit from the mOTU database:
   * [fastaExtractWithCoordBase1.pl](fastaExtractWithCoordBase1.pl)
   * [getValidGenes1.R](getValidGenes1.R)
   * [getValidGenes2new.R](getValidGenes2new.R)
   * [getHitPhylogenyNew.R](getHitPhylogenyNew.R)
 
-to parse taxonomy of [MG-RAST annotations](taxonomic-MG-RAST-annotations.md) of genes:
+### to parse taxonomy of [MG-RAST annotations](taxonomic-MG-RAST-annotations.md) of genes:
   * [parse_taxbrowser_MGRAST.py](parse_taxbrowser_MGRAST.py)
   * [MGRASTgeneLevelTax.R](MGRASTgeneLevelTax.R)
 
-to automatically [cluster](automatic-clustering.md) contigs based on nucleotide signature (BH-SNE maps), DNA coverage and essential genes:
+### to automatically [cluster](automatic-clustering.md) contigs based on nucleotide signature (BH-SNE maps), DNA coverage and essential genes:
   * [autoCluster.R](autoCluster.R)
   * [fastaExtractCutRibosomal1000.pl](fastaExtractCutRibosomal1000.pl)
   * [makeWSvarAnnoCorrect.R](makeWSvarAnnoCorrect.R)
   
-to gather contig clusters by [related phylogenetic marker genes in a phylogenetic tree](phylogenetic-marker-genes-trees.md):
+### to gather contig clusters by [related phylogenetic marker genes in a phylogenetic tree](phylogenetic-marker-genes-trees.md):
   * [150819_MUST_tree.R](150819_MUST_tree.R)
   * [150816_getPhyloMarkers.R](150816_getPhyloMarkers.R)
 
-to [reconstruct](reconstructed-KO-network.md) a metabolic network from KOs and analyse it:
+### to [reconstruct](reconstructed-KO-network.md) a metabolic network from KOs and analyse it:
   * [140630_MUST_NW.R](140630_MUST_NW.R)
   * the above script needs [file](150705_KOs_in_NW.tsv) 150705_KOs_in_NW.tsv
   * [runHeinz.sh](runHeinz.sh)
   * [plotModules_omicLevels.R](plotModules_omicLevels.R)
 
-to feed a [mongo database](mongo-database.md) with all the data from MuSt and retrieve some of the data:
+### to feed a [mongo database](mongo-database.md) with all the data from MuSt and retrieve some of the data:
   * [150928_mongifyMust.py](150928_mongifyMust.py)
   * [151020_funOIMongoWS.R](151020_funOIMongoWS.R)
   * [150928_MUST_relatedClusterWSFromMongo.R](150928_MUST_relatedClusterWSFromMongo.R)
